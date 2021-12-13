@@ -68,9 +68,9 @@ public class Player : Entity{
 
         //Input Management
         if(Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.Q))
-            transform.position -= transform.right * m_HorizontalSpeed * Time.deltaTime;
-        if(Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D))
             transform.position += transform.right * m_HorizontalSpeed * Time.deltaTime;
+        if(Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D))
+            transform.position -= transform.right * m_HorizontalSpeed * Time.deltaTime;
         if(Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.Z))
             transform.position += transform.up * m_VerticalSpeed * Time.deltaTime;
         if(Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S))
@@ -112,7 +112,15 @@ public class Player : Entity{
         if(screen_position.y > Screen.height)
             transform.position -= transform.up * m_VerticalSpeed * Time.deltaTime;
 
-
+        //Rotation Management
+        if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.Q))
+            transform.Rotate(transform.up, 5f);
+        if (Input.GetKeyUp(KeyCode.LeftArrow) && Input.GetKeyUp(KeyCode.Q))
+            transform.Rotate(transform.up, -5f);
+        if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D))
+            transform.Rotate(transform.up, -5f);
+        if (Input.GetKeyUp(KeyCode.RightArrow) && Input.GetKeyUp(KeyCode.D))
+            transform.Rotate(transform.up, 5f);
     }
 
     // Update is called once per frame
