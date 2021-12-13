@@ -82,13 +82,14 @@ public class EnemiesManager : MonoBehaviour{
     }
 
     private void SpawnBase(){
+        int i;
         int num = (int)UnityEngine.Random.Range(0, 3 - 0.001f);
         switch ((Wave)num){
             case Wave.H_LINE:
                 Vector3 screenPosition = m_MainCamera.WorldToScreenPoint(transform.position);
                 screenPosition.x = Screen.width / 2;
 
-                for (int i = 0; i < 5; i++){
+                for (i = 0; i < 5; i++){
                     m_Children.Add(Instantiate(m_EnemyObject));
                     m_Children[i].GetComponent<Enemy>().OnDeath += Died;
                 }
@@ -106,7 +107,7 @@ public class EnemiesManager : MonoBehaviour{
 
                 Vector3 worldPosition = m_MainCamera.ScreenToWorldPoint(screenPosition);
 
-                for (int i = 0; i < 5; i++){
+                for (i = 0; i < 5; i++){
                     m_Children[i].transform.position = worldPosition;
                     m_Children[i].transform.position += transform.right * (2 - i) * 1.25f;
                 }
@@ -114,7 +115,7 @@ public class EnemiesManager : MonoBehaviour{
             case Wave.V_LINE:
                 screenPosition = m_MainCamera.WorldToScreenPoint(transform.position);
                 
-                for (int i = 0; i < 5; i++){
+                for (i = 0; i < 5; i++){
                     m_Children.Add(Instantiate(m_EnemyObject));
                     m_Children[i].GetComponent<Enemy>().OnDeath += Died;
                 }
@@ -147,7 +148,7 @@ public class EnemiesManager : MonoBehaviour{
 
                 worldPosition = m_MainCamera.ScreenToWorldPoint(screenPosition);
 
-                for (int i = 0; i < 5; i++)
+                for (i = 0; i < 5; i++)
                 {
                     m_Children[i].transform.position = worldPosition;
                     m_Children[i].transform.position += transform.up * i * 1.25f;
@@ -157,7 +158,7 @@ public class EnemiesManager : MonoBehaviour{
                 screenPosition = m_MainCamera.WorldToScreenPoint(transform.position);
                 screenPosition.x = Screen.width / 2;
 
-                for(int i = 0; i < 5; i++){
+                for(i = 0; i < 5; i++){
                     m_Children.Add(Instantiate(m_EnemyObject));
                     m_Children[i].GetComponent<Enemy>().OnDeath += Died;
                 }
@@ -175,7 +176,7 @@ public class EnemiesManager : MonoBehaviour{
 
                 worldPosition = m_MainCamera.ScreenToWorldPoint(screenPosition);
 
-                for(int i = 0; i < 5; i++){
+                for(i = 0; i < 5; i++){
                     m_Children[i].transform.position = worldPosition;
                     if(i != 2)
                         m_Children[i].transform.position += transform.right * (i > 2 ? 1 : -1) * 1.25f;
@@ -187,7 +188,7 @@ public class EnemiesManager : MonoBehaviour{
                 screenPosition = m_MainCamera.WorldToScreenPoint(transform.position);
                 screenPosition.x = Screen.width / 2;
 
-                for(int i = 0; i < 8; i++){
+                for(i = 0; i < 8; i++){
                     m_Children.Add(Instantiate(m_EnemyObject));
                     m_Children[i].GetComponent<Enemy>().OnDeath += Died;
                 }
@@ -204,8 +205,6 @@ public class EnemiesManager : MonoBehaviour{
                 }
 
                 worldPosition = m_MainCamera.ScreenToWorldPoint(screenPosition);
-
-                int i = 0;
 
                 for(; i < 3; i++){
                     m_Children[i].transform.position = worldPosition;
@@ -234,7 +233,7 @@ public class EnemiesManager : MonoBehaviour{
                 screenPosition = m_MainCamera.WorldToScreenPoint(transform.position);
                 screenPosition.x = Screen.width / 2;
 
-                for(int i = 0; i < 5; i++){
+                for(i = 0; i < 5; i++){
                     m_Children.Add(Instantiate(m_EnemyObject));
                     m_Children[i].GetComponent<Enemy>().OnDeath += Died;
                 }
@@ -250,7 +249,9 @@ public class EnemiesManager : MonoBehaviour{
                     }
                 }
 
-                for(int i = 0; i < 5; i++){
+                worldPosition = m_MainCamera.ScreenToWorldPoint(screenPosition);
+
+                for (i = 0; i < 5; i++){
                     m_Children[i].transform.position = worldPosition;
                     m_Children[i].transform.position += transform.right * (i - 2) * 0.79f;
                     m_Children[i].transform.position += transform.up * (i > 2 ? 1 : -1) * (i - 2) * 0.79f;
@@ -260,7 +261,7 @@ public class EnemiesManager : MonoBehaviour{
                 screenPosition = m_MainCamera.WorldToScreenPoint(transform.position);
                 screenPosition.x = Screen.width / 2;
 
-                for (int i = 0; i < 5; i++){
+                for (i = 0; i < 5; i++){
                     m_Children.Add(Instantiate(m_EnemyObject));
                     m_Children[i].GetComponent<Enemy>().OnDeath += Died;
                 }
@@ -276,7 +277,9 @@ public class EnemiesManager : MonoBehaviour{
                     }
                 }
 
-                for (int i = 0; i < 5; i++){
+                worldPosition = m_MainCamera.ScreenToWorldPoint(screenPosition);
+
+                for (i = 0; i < 5; i++){
                     m_Children[i].transform.position = worldPosition;
                     m_Children[i].transform.position += transform.right * (i - 2) * 0.79f;
                     m_Children[i].transform.position += transform.up * ((i + 1) % 2) * 0.79f;
@@ -286,7 +289,7 @@ public class EnemiesManager : MonoBehaviour{
                 screenPosition = m_MainCamera.WorldToScreenPoint(transform.position);
                 screenPosition.x = Screen.width / 2;
 
-                for (int i = 0; i < 9; i++){
+                for (i = 0; i < 9; i++){
                     m_Children.Add(Instantiate(m_EnemyObject));
                     m_Children[i].GetComponent<Enemy>().OnDeath += Died;
                 }
@@ -302,8 +305,9 @@ public class EnemiesManager : MonoBehaviour{
                     }
                 }
 
-                int i = 0;
-                for(; i < 5; i++){
+                worldPosition = m_MainCamera.ScreenToWorldPoint(screenPosition);
+
+                for (; i < 5; i++){
                     m_Children[i].transform.position = worldPosition;
                     m_Children[i].transform.position += transform.right * (i - 2) * 0.79f;
                     m_Children[i].transform.position += transform.up * (i - 2) * 0.79f;
