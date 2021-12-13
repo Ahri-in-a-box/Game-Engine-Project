@@ -157,6 +157,109 @@ public class EnemiesManager : MonoBehaviour{
                 screenPosition = m_MainCamera.WorldToScreenPoint(transform.position);
                 screenPosition.x = Screen.width / 2;
 
+                for(int i = 0; i < 5; i++){
+                    m_Children.Add(Instantiate(m_EnemyObject));
+                    m_Children[i].GetComponent<Enemy>().OnDeath += Died;
+                }
+
+                pos = Mathf.Cos(Time.time);
+                if(pos < -0.3){
+                    //Spawn left
+                    screenPosition.x = Screen.width * 0.3f;
+                }else{
+                    if(pos > 0.3){
+                        //Spawn right
+                        screenPosition.x = Screen.width * 0.7f;
+                    }
+                }
+
+                worldPosition = m_MainCamera.ScreenToWorldPoint(screenPosition);
+
+                for(int i = 0; i < 5; i++){
+                    m_Children[i].transform.position = worldPosition;
+                    if(i != 2)
+                        m_Children[i].transform.position += transform.right * (i > 2 ? 1 : -1) * 1.25f;
+                    if (i == 0 || i == 4)
+                        m_Children[i].transform.position += transform.up * 1.25f;
+                }
+                break;
+            case Wave.SQUARE:
+                screenPosition = m_MainCamera.WorldToScreenPoint(transform.position);
+                screenPosition.x = Screen.width / 2;
+
+                for(int i = 0; i < 8; i++){
+                    m_Children.Add(Instantiate(m_EnemyObject));
+                    m_Children[i].GetComponent<Enemy>().OnDeath += Died;
+                }
+
+                pos = Mathf.Cos(Time.time);
+                if(pos < -0.3){
+                    //Spawn left
+                    screenPosition.x = Screen.width * 0.3f;
+                }else{
+                    if(pos > 0.3){
+                        //Spawn right
+                        screenPosition.x = Screen.width * 0.7f;
+                    }
+                }
+
+                worldPosition = m_MainCamera.ScreenToWorldPoint(screenPosition);
+
+                int i = 0;
+
+                for(; i < 3; i++){
+                    m_Children[i].transform.position = worldPosition;
+                    m_Children[i].transform.position -= transform.right * 1.25f;
+                    m_Children[i].transform.position += transform.up * i * 1.25f;
+                }
+
+                for (; i < 5; i++){
+                    m_Children[i].transform.position = worldPosition;
+                    m_Children[i].transform.position += transform.up * (i-3) * 2 * 1.25f;
+                }
+
+                for (; i < 8; i++){
+                    m_Children[i].transform.position = worldPosition;
+                    m_Children[i].transform.position += transform.right * 1.25f;
+                    m_Children[i].transform.position += transform.up * (i-5) * 1.25f;
+                }
+                break;
+            case Wave.U_ROUND:
+                break;
+            case Wave.N_ROUND:
+                break;
+            case Wave.FULL_ROUND:
+                break;
+            case Wave.V:
+                screenPosition = m_MainCamera.WorldToScreenPoint(transform.position);
+                screenPosition.x = Screen.width / 2;
+
+                for(int i = 0; i < 5; i++){
+                    m_Children.Add(Instantiate(m_EnemyObject));
+                    m_Children[i].GetComponent<Enemy>().OnDeath += Died;
+                }
+
+                pos = Mathf.Cos(Time.time);
+                if(pos < -0.3){
+                    //Spawn left
+                    screenPosition.x = Screen.width * 0.3f;
+                }else{
+                    if(pos > 0.3){
+                        //Spawn right
+                        screenPosition.x = Screen.width * 0.7f;
+                    }
+                }
+
+                for(int i = 0; i < 5; i++){
+                    m_Children[i].transform.position = worldPosition;
+                    m_Children[i].transform.position += transform.right * (i - 2) * 0.79f;
+                    m_Children[i].transform.position += transform.up * (i > 2 ? 1 : -1) * (i - 2) * 0.79f;
+                }
+                break;
+            case Wave.W:
+                screenPosition = m_MainCamera.WorldToScreenPoint(transform.position);
+                screenPosition.x = Screen.width / 2;
+
                 for (int i = 0; i < 5; i++){
                     m_Children.Add(Instantiate(m_EnemyObject));
                     m_Children[i].GetComponent<Enemy>().OnDeath += Died;
@@ -173,29 +276,50 @@ public class EnemiesManager : MonoBehaviour{
                     }
                 }
 
-                worldPosition = m_MainCamera.ScreenToWorldPoint(screenPosition);
-
                 for (int i = 0; i < 5; i++){
                     m_Children[i].transform.position = worldPosition;
-                    if(i != 2)
-                        m_Children[i].transform.position += transform.right * (i > 2 ? 1 : -1) * 1.25f;
-                    if (i == 0 || i == 4)
-                        m_Children[i].transform.position += transform.up * 1.25f;
+                    m_Children[i].transform.position += transform.right * (i - 2) * 0.79f;
+                    m_Children[i].transform.position += transform.up * ((i + 1) % 2) * 0.79f;
                 }
                 break;
-            case Wave.SQUARE:
-                break;
-            case Wave.U_ROUND:
-                break;
-            case Wave.N_ROUND:
-                break;
-            case Wave.FULL_ROUND:
-                break;
-            case Wave.V:
-                break;
-            case Wave.W:
-                break;
             case Wave.X:
+                screenPosition = m_MainCamera.WorldToScreenPoint(transform.position);
+                screenPosition.x = Screen.width / 2;
+
+                for (int i = 0; i < 9; i++){
+                    m_Children.Add(Instantiate(m_EnemyObject));
+                    m_Children[i].GetComponent<Enemy>().OnDeath += Died;
+                }
+
+                pos = Mathf.Cos(Time.time);
+                if (pos < -0.3){
+                    //Spawn left
+                    screenPosition.x = Screen.width * 0.3f;
+                }else{
+                    if (pos > 0.3){
+                        //Spawn right
+                        screenPosition.x = Screen.width * 0.7f;
+                    }
+                }
+
+                int i = 0;
+                for(; i < 5; i++){
+                    m_Children[i].transform.position = worldPosition;
+                    m_Children[i].transform.position += transform.right * (i - 2) * 0.79f;
+                    m_Children[i].transform.position += transform.up * (i - 2) * 0.79f;
+                }
+
+                for(; i < 7; i++){
+                    m_Children[i].transform.position = worldPosition;
+                    m_Children[i].transform.position -= transform.right * (i - 4) * 0.79f;
+                    m_Children[i].transform.position += transform.up * (i - 4) * 0.79f;
+                }
+
+                for (; i < 9; i++){
+                    m_Children[i].transform.position = worldPosition;
+                    m_Children[i].transform.position += transform.right * (i - 6) * 0.79f;
+                    m_Children[i].transform.position -= transform.up * (i - 6) * 0.79f;
+                }
                 break;
             default:
                 break;
