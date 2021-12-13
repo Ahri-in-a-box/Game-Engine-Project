@@ -10,11 +10,11 @@
 
 :models
 
-[name:;collection:Aircraft;type:hull_lower;position:(0.0000, -0.0180, -0.2770);rotation:(90.0000, 0.0000, 0.0000);scale:(1.0000, 0.7000, 2.0900);group:;locked:False;hidden:False;materials:dark+metalPurple;]
-[name:;collection:Aircraft;type:hull_lowerFrontPoint;position:(0.0000, 1.1270, -0.2770);rotation:(270.0000, 180.0000, 0.0000);scale:(1.0000, 0.7000, 0.8000);group:;locked:False;hidden:False;materials:dark+metalPurple;]
-[name:;collection:Aircraft;type:wing_slantEdgeWinglet;position:(0.9500, 0.1270, -0.1270);rotation:(270.0000, 180.0000, 0.0000);scale:(0.9000, 1.0000, 1.0000);group:;locked:False;hidden:False;materials:dark+metalPurple;]
-[name:;collection:Aircraft;type:hull_topEngine;position:(0.0000, 0.5270, 0.0730);rotation:(270.0000, 180.0000, 0.0000);scale:(1.0000, 0.6000, 1.0000);group:;locked:False;hidden:False;materials:dark+metalPurple+dark;]
-[name:;collection:Aircraft;type:hull_topIntake;position:(0.0000, -0.4730, 0.0730);rotation:(90.0000, 0.0000, 0.0000);scale:(1.0000, 0.6000, 1.0000);group:;locked:False;hidden:False;materials:metalPurple+dark+dark;]
-[name:;collection:Aircraft;type:wing_slantEdgeWinglet;position:(-0.9455, 0.1270, -0.1270);rotation:(270.0000, 180.0000, 0.0000);scale:(-0.8910, 1.0000, 1.0000);group:;locked:False;hidden:False;materials:dark+metalPurple;]
-[name:;collection:Aircraft;type:rudder_sides;position:(0.0000, 0.2270, 0.3730);rotation:(270.0000, 180.0000, 0.0000);scale:(1.0000, 0.7200, 1.0000);group:;locked:False;hidden:False;materials:metalPurple+dark;]
-[name:;collection:Aircraft;type:engine_low;position:(-0.0050, -0.8230, -0.2420);rotation:(90.0000, 0.0000, 0.0000);scale:(0.8100, 0.5670, 0.9000);group:;locked:False;hidden:False;materials:dark+metalPurple+dark;]
+[name:;collection:Aircraft;type:wing_slantEdgeWinglet;position:(-0.9410, 0.1270, 0.1270);rotation:(270.0000, 0.0000, 0.0000);scale:(0.9000, 1.0000, 1.0000);group:;locked:False;hidden:False;materials:dark+metalPurple;]
+[name:;collection:Aircraft;type:hull_topEngine;position:(0.0090, 0.5270, -0.0730);rotation:(270.0000, 0.0000, 0.0000);scale:(1.0000, 0.6000, 1.0000);group:;locked:False;hidden:False;materials:dark+metalPurple+dark;]
+[name:;collection:Aircraft;type:hull_lowerFrontPoint;position:(0.0090, 1.1270, 0.2770);rotation:(270.0000, 0.0000, 0.0000);scale:(1.0000, 0.7000, 0.8000);group:;locked:False;hidden:False;materials:dark+metalPurple;]
+[name:;collection:Aircraft;type:rudder_sides;position:(0.0090, 0.2270, -0.3730);rotation:(270.0000, 0.0000, 0.0000);scale:(1.0000, 0.7200, 1.0000);group:;locked:False;hidden:False;materials:metalPurple+dark;]
+[name:;collection:Aircraft;type:hull_topIntake;position:(0.0090, -0.4730, -0.0730);rotation:(90.0000, 180.0000, 0.0000);scale:(1.0000, 0.6000, 1.0000);group:;locked:False;hidden:False;materials:metalPurple+dark+dark;]
+[name:;collection:Aircraft;type:hull_lower;position:(0.0090, -0.0180, 0.2770);rotation:(90.0000, 180.0000, 0.0000);scale:(1.0000, 0.7000, 2.0900);group:;locked:False;hidden:False;materials:dark+metalPurple;]
+[name:;collection:Aircraft;type:engine_low;position:(0.0140, -0.8230, 0.2420);rotation:(90.0000, 180.0000, 0.0000);scale:(0.8100, 0.5670, 0.9000);group:;locked:False;hidden:False;materials:dark+metalPurple+dark;]
+[name:;collection:Aircraft;type:wing_slantEdgeWinglet;position:(0.9545, 0.1270, 0.1270);rotation:(270.0000, 0.0000, 0.0000);scale:(-0.8910, 1.0000, 1.0000);group:;locked:False;hidden:False;materials:dark+metalPurple;]
