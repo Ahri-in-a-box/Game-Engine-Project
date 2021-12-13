@@ -30,6 +30,8 @@ public class Player : Entity{
     public event d_OnHPChange OnHPChange;
     public event d_OnScoreChange OnScoreChange;
 
+    private Quaternion m_DefaultRotation;
+
     new void Awake(){
         base.Awake();
         //Verifier si la caméra est bien set up
@@ -40,6 +42,8 @@ public class Player : Entity{
         m_Stopwatch = new System.Diagnostics.Stopwatch();
 
         Bullet.OnHit += OnBulletHit;
+
+        m_DefaultRotation = transform.rotation;
     }
 
     // Start is called before the first frame update
@@ -65,12 +69,13 @@ public class Player : Entity{
     }
 
     void PlayerControl(){
+        transform.rotation = m_DefaultRotation;
 
         //Input Management
         if(Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.Q))
-            transform.position += transform.right * m_HorizontalSpeed * Time.deltaTime;
-        if(Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D))
             transform.position -= transform.right * m_HorizontalSpeed * Time.deltaTime;
+        if(Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D))
+            transform.position += transform.right * m_HorizontalSpeed * Time.deltaTime;
         if(Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.Z))
             transform.position += transform.up * m_VerticalSpeed * Time.deltaTime;
         if(Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S))
@@ -113,14 +118,10 @@ public class Player : Entity{
             transform.position -= transform.up * m_VerticalSpeed * Time.deltaTime;
 
         //Rotation Management
-        if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.Q))
-            transform.Rotate(transform.up, 5f);
-        if (Input.GetKeyUp(KeyCode.LeftArrow) && Input.GetKeyUp(KeyCode.Q))
-            transform.Rotate(transform.up, -5f);
-        if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D))
-            transform.Rotate(transform.up, -5f);
-        if (Input.GetKeyUp(KeyCode.RightArrow) && Input.GetKeyUp(KeyCode.D))
-            transform.Rotate(transform.up, 5f);
+        if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.Q))
+            transform.Rotate(transform.up, 20f);
+        if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D))
+            transform.Rotate(transform.up, -20f);
     }
 
     // Update is called once per frame

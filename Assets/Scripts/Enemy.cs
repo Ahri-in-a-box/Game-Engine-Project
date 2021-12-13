@@ -10,7 +10,7 @@ public class Enemy : Entity{
     [SerializeField, Range(0f, 15f)]
     private float m_Speed = 1f;
 
-    public delegate void d_OnDeath(GameObject enemy);
+    public delegate void d_OnDeath(GameObject enemy, GameObject destroyer);
     public event d_OnDeath OnDeath;
 
     new void Awake(){
@@ -37,8 +37,10 @@ public class Enemy : Entity{
                 break;
         }
 
-        if(m_ActualHealth == 0)
+        if(m_ActualHealth == 0){
+            OnDeath?.Invoke(gameObject, collision.gameObject);
             Destroy(gameObject);
+        }
     }
 
     void Move(){
@@ -55,6 +57,6 @@ public class Enemy : Entity{
     }
 
     private void OnDestroy(){
-        OnDeath?.Invoke(gameObject);
+        
     }
 }

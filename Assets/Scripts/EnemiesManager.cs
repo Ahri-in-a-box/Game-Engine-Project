@@ -75,15 +75,19 @@ public class EnemiesManager : MonoBehaviour{
         UnityEngine.Random.InitState((int)time.TotalMilliseconds);
     }
 
-    public void Died(GameObject enemy){
+    public void Died(GameObject enemy, GameObject destroyer){
         m_Children.Remove(enemy);
         if (enemy.GetComponent<Enemy>())
             enemy.GetComponent<Enemy>().OnDeath -= Died;
+
+        if(destroyer.tag == "Bullet"){
+            //loot here
+        }
     }
 
     private void SpawnBase(){
         int i;
-        int num = (int)UnityEngine.Random.Range(0, 3 - 0.001f);
+        int num = (int)UnityEngine.Random.Range(0, NB_POSS_WAVE - 0.001f);
         switch ((Wave)num){
             case Wave.H_LINE:
                 Vector3 screenPosition = m_MainCamera.WorldToScreenPoint(transform.position);
