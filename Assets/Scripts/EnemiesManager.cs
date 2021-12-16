@@ -210,7 +210,7 @@ public class EnemiesManager : MonoBehaviour{
 
                 worldPosition = m_MainCamera.ScreenToWorldPoint(screenPosition);
 
-                for(; i < 3; i++){
+                for(i = 0; i < 3; i++){
                     m_Children[i].transform.position = worldPosition;
                     m_Children[i].transform.position -= transform.right * 1.25f;
                     m_Children[i].transform.position += transform.up * i * 1.25f;
@@ -311,7 +311,7 @@ public class EnemiesManager : MonoBehaviour{
 
                 worldPosition = m_MainCamera.ScreenToWorldPoint(screenPosition);
 
-                for (; i < 5; i++){
+                for(i = 0; i < 5; i++){
                     m_Children[i].transform.position = worldPosition;
                     m_Children[i].transform.position += transform.right * (i - 2) * 0.79f;
                     m_Children[i].transform.position += transform.up * (i - 2) * 0.79f;
