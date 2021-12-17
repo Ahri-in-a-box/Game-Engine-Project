@@ -7,7 +7,7 @@ public class Entity : MonoBehaviour{
     public uint m_ActualHealth { get; protected set; } = 0;
 
     [Header("Health Setting")]
-    [SerializeField, Range(1, 50)]
+    [SerializeField, Range(1, 5000)]
     protected uint m_MaxHealth = 3;
 
     public uint MaxHP => m_MaxHealth;

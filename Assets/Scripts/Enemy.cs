@@ -55,8 +55,4 @@ public class Enemy : Entity{
     void Update(){
         Move();
     }
-
-    private void OnDestroy(){
-        
-    }
 }

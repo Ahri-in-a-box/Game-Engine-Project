@@ -7,10 +7,8 @@ enum Wave{
     H_LINE,
     V_LINE,
     HALF_SQUARE,
+    HALF_SQ_ARE_REV,
     SQUARE,
-    U_ROUND,
-    N_ROUND,
-    FULL_ROUND,
     V,
     W,
     X,
@@ -27,7 +25,7 @@ enum Loot{
 
 public class EnemiesManager : MonoBehaviour{
 
-    private const uint NB_POSS_WAVE = 10; //+1 with BOSS
+    private const uint NB_POSS_WAVE = 8; //
     private const uint NB_POSS_LOOT = 4; //+1 with NONE
     private const uint NB_WAVE_TO_BOSS_SPAWN = 7; //A boss every 8 waves
 
@@ -59,7 +57,13 @@ public class EnemiesManager : MonoBehaviour{
     [SerializeField]
     private GameObject m_EnemyObject = null;
     [SerializeField]
-    private GameObject m_BossObject = null;
+    private GameObject m_BossSperpentHead = null;
+    [SerializeField]
+    private GameObject m_Boss2Object = null;
+
+    [Header("Loot Settings")]
+    [SerializeField, Range(0f, 1f)]
+    private float m_LootSpawnProbability = 0.1f;
 
     private List<GameObject> m_Children = new List<GameObject>();
     private bool m_Spawned = false;
@@ -227,11 +231,35 @@ public class EnemiesManager : MonoBehaviour{
                     m_Children[i].transform.position += transform.up * (i-5) * 1.25f;
                 }
                 break;
-            case Wave.U_ROUND:
-                break;
-            case Wave.N_ROUND:
-                break;
-            case Wave.FULL_ROUND:
+            case Wave.HALF_SQ_ARE_REV:
+                screenPosition = m_MainCamera.WorldToScreenPoint(transform.position);
+                screenPosition.x = Screen.width / 2;
+
+                for (i = 0; i < 5; i++){
+                    m_Children.Add(Instantiate(m_EnemyObject));
+                    m_Children[i].GetComponent<Enemy>().OnDeath += Died;
+                }
+
+                pos = Mathf.Cos(Time.time);
+                if (pos < -0.3){
+                    //Spawn left
+                    screenPosition.x = Screen.width * 0.3f;
+                }else{
+                    if (pos > 0.3){
+                        //Spawn right
+                        screenPosition.x = Screen.width * 0.7f;
+                    }
+                }
+
+                worldPosition = m_MainCamera.ScreenToWorldPoint(screenPosition);
+
+                for (i = 0; i < 5; i++){
+                    m_Children[i].transform.position = worldPosition;
+                    if (i != 2)
+                        m_Children[i].transform.position += transform.right * (i > 2 ? 1 : -1) * 1.25f;
+                    if (i != 0 && i != 4)
+                        m_Children[i].transform.position += transform.up * 1.25f;
+                }
                 break;
             case Wave.V:
                 screenPosition = m_MainCamera.WorldToScreenPoint(transform.position);
@@ -335,7 +363,8 @@ public class EnemiesManager : MonoBehaviour{
     }
 
     private void SpawnBoss(){
-
+        if(m_BossSperpentHead)
+            m_Children.Add(Instantiate(m_BossSperpentHead));
     }
 
     private void Spawn(){
