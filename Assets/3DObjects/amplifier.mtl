@@ -4,5 +4,5 @@ newmtl _defaultMat(Clone)
 Kd 1 0.314 0.91
 
 newmtl _defaultMat(Clone)(Clone)
-Kd 0.7586206 1 0
+Kd 0.759 1 0
 
