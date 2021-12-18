@@ -1,0 +1,14 @@
+# Created by Kenney (www.kenney.nl)
+
+newmtl stoneLight(Clone)
+Kd 1 0 0
+
+newmtl stoneDark(Clone)
+Kd 0.403 0.39 0.594
+
+newmtl stoneDark(Clone)(Clone)
+Kd 0.403 0.39 0.594
+
+newmtl foliage(Clone)
+Kd 0.655 0.434 0
+
