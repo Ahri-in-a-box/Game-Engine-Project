@@ -15,14 +15,6 @@ enum Wave{
     BOSS
 };
 
-enum Loot{
-    NONE,
-    HEALTH,
-    SHIELD,
-    GROWTH,
-    AMPLIFIER
-};
-
 public class EnemiesManager : MonoBehaviour{
 
     private const uint NB_POSS_WAVE = 8; //
@@ -64,6 +56,8 @@ public class EnemiesManager : MonoBehaviour{
     [Header("Loot Settings")]
     [SerializeField, Range(0f, 1f)]
     private float m_LootSpawnProbability = 0.1f;
+    [SerializeField]
+    private GameObject m_LootObject = null;
 
     private List<GameObject> m_Children = new List<GameObject>();
     private bool m_Spawned = false;
@@ -85,7 +79,32 @@ public class EnemiesManager : MonoBehaviour{
             enemy.GetComponent<Enemy>().OnDeath -= Died;
 
         if(destroyer.tag == "Bullet"){
-            //loot here
+            if(UnityEngine.Random.Range(0,1) < m_LootSpawnProbability && m_LootObject){
+                GameObject child = Instantiate(m_LootObject);
+                Loot comp = child.GetComponent<Loot>();
+                switch ((eLoot)(Mathf.RoundToInt(UnityEngine.Random.Range(0, NB_POSS_LOOT)) + 1)){
+                    case eLoot.HEALTH:
+                        child.name = "Health Kit";
+                        comp.SetType((int)eLoot.HEALTH);
+                        comp.SetValue(1);
+                        break;
+                    case eLoot.SHIELD:
+                        child.name = "Shield";
+                        comp.SetType((int)eLoot.SHIELD);
+                        comp.SetValue(5);
+                        break;
+                    case eLoot.GROWTH:
+                        child.name = "HP Growth";
+                        comp.SetType((int)eLoot.GROWTH);
+                        comp.SetValue(1);
+                        break;
+                    case eLoot.AMPLIFIER:
+                        child.name = "Amplifier";
+                        comp.SetType((int)eLoot.AMPLIFIER);
+                        comp.SetValue(1);
+                        break;
+                }
+            }
         }
     }
 

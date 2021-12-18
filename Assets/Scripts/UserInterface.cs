@@ -17,6 +17,8 @@ public class UserInterface : MonoBehaviourSingleton<UserInterface>{
     [SerializeField]
     UnityEngine.UI.Slider m_HPBar = null;
     [SerializeField]
+    UnityEngine.UI.Slider m_ShieldBar = null;
+    [SerializeField]
     GameObject m_ScoreBoard = null;
 
     [Header("Pause Menu")]
@@ -31,8 +33,10 @@ public class UserInterface : MonoBehaviourSingleton<UserInterface>{
             Debug.LogError("No Score Object for UserInterface");
         if (!m_HPBar)
             Debug.LogError("No HP Bar for UserInterface");
+        if (!m_ShieldBar)
+            Debug.LogError("No Shield Bar for UserInterface");
 
-        if(m_Restart){
+        if (m_Restart){
             m_Restart.GetComponent<UnityEngine.UI.Button>().onClick.AddListener(() => GameManager.Instance.ResetLevel());
         }
         else{
@@ -90,8 +94,13 @@ public class UserInterface : MonoBehaviourSingleton<UserInterface>{
     private void HPBarManager(Player player){
         uint hp = player.m_ActualHealth;
         uint maxHp = player.MaxHP;
-        m_HPBar.value = hp;
+        uint shield = player.shield;
+
         m_HPBar.maxValue = maxHp;
+        m_HPBar.value = hp;
+        m_ShieldBar.maxValue = maxHp == shield ? shield + 1 : shield;
+        m_ShieldBar.value = shield;
+
         if (hp == 0){
             if(m_ScoreBoard){
                 int myPlace = addInPrefs(player.score);

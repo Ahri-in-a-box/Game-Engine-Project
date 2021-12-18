@@ -7,7 +7,7 @@ public class SerpentHead : Serpent{
     [SerializeField]
     private GameObject m_SerpentTail = null;
     [SerializeField]
-    private GameObject m_LastSerpentTailModel = null;
+    private Mesh m_LastSerpentTailModel = null;
 
     private List<GameObject> m_Children = new List<GameObject>();
     public delegate void d_OnDeath(GameObject enemy, GameObject destroyer);
@@ -51,6 +51,8 @@ public class SerpentHead : Serpent{
         if(m_DistanceMoved * 1.5 > m_Children.Count + 1 && m_Children.Count < m_TailLength){
             GameObject child = Instantiate(m_SerpentTail);
             child.GetComponent<SerpentTail>().OnHit += OnTailHit;
+            if(m_Children.Count == 8 && m_LastSerpentTailModel)
+                child.GetComponent<MeshFilter>().mesh = m_LastSerpentTailModel;
             m_Children.Add(child);
         }
     }

@@ -22,8 +22,11 @@ public class Player : Entity{
 
     private System.Diagnostics.Stopwatch m_Stopwatch = null;
     private uint m_Score = 0;
+    private uint m_Shield = 0;
+    private uint m_BulletPerShoot = 1;
 
     public uint score => m_Score;
+    public uint shield => m_Shield;
 
     public delegate void d_OnHPChange(Player me);
     public delegate void d_OnScoreChange(uint score);
@@ -59,9 +62,40 @@ public class Player : Entity{
     }
 
     private void OnCollisionEnter(Collision collision){
-        if(collision.gameObject.tag == "Enemy"){
-            m_ActualHealth--;
-            OnHPChange?.Invoke(this);
+        switch (collision.gameObject.tag){
+            case "Enemy":
+                if (m_Shield > 0)
+                    m_Shield--;
+                else
+                    m_ActualHealth--;
+                OnHPChange?.Invoke(this);
+                break;
+            case "Loot":
+                Loot loot = collision.gameObject.GetComponent<Loot>();
+                switch((eLoot)loot.LootType){
+                    case eLoot.HEALTH:
+                        m_ActualHealth += loot.value;
+                        if(m_ActualHealth > m_MaxHealth)
+                            m_ActualHealth = m_MaxHealth;
+                        break;
+                    case eLoot.SHIELD:
+                        m_Shield += loot.value;
+                        break;
+                    case eLoot.GROWTH:
+                        m_ActualHealth += loot.value;
+                        m_MaxHealth += loot.value;
+                        break;
+                    case eLoot.AMPLIFIER:
+                        m_BulletPerShoot += 1;
+                        if(m_BulletPerShoot > 3)
+                            m_BulletPerShoot = 3;
+                        break;
+                    default:
+                        break;
+                }
+                break;
+            default:
+                break;
         }
 
         if(m_ActualHealth == 0)
@@ -98,8 +132,28 @@ public class Player : Entity{
 
             //Fire if needed
             if(generate && Time.timeScale != 0f){
-                GameObject bullet = Instantiate(m_FireObject);
-                bullet.transform.position = transform.position;
+                switch (m_BulletPerShoot){
+                    case 2:
+                        GameObject bullet1 = Instantiate(m_FireObject);
+                        GameObject bullet2 = Instantiate(m_FireObject);
+                        bullet1.transform.position = transform.position;
+                        bullet1.transform.position -= bullet1.transform.right * 0.5f;
+                        bullet2.transform.position = transform.position;
+                        bullet2.transform.position += bullet2.transform.right * 0.5f;
+                        break;
+                    case 3:
+                        for(int i = 0; i < 3; i++){
+                            GameObject bul = Instantiate(m_FireObject);
+                            bul.transform.position = transform.position;
+                            bul.transform.Rotate(0, 0, (i - 1) * 35);
+                        }
+                        break;
+                    default:
+                        GameObject bullet = Instantiate(m_FireObject);
+                        bullet.transform.position = transform.position;
+                        break;
+                }
+                
             }
         }else{
             m_Stopwatch.Reset();
