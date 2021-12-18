@@ -6,7 +6,7 @@
 + Ajouter le looting de bonus (Fait)
 + Ajouter un ou plusieurs boss (Serpent(Fait) + un boss qui tire)
 + Proposer différentes phases / différents patternes d'attaques pour les boss (En cours)
-+ Ajouter du son (Ambiance, Tirs, Damage, Récupération Bonus, Shield Damage, shield activation) (Fait)
++ Ajouter du son (Ambiance, Tirs, Damage, Récupération Bonus, Shield Damage, shield activation) (Fait, faire la mise au point)
 + Ajouter des textures / modèle etc (En cours)
 + Ajouter des background pour le titre et le jeu (Fait)
 
