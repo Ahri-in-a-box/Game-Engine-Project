@@ -34,7 +34,7 @@ public class SerpentHead : Serpent{
                 break;
         }
 
-        if(m_ActualHealth <= 0){
+        if (m_ActualHealth <= 0){
             OnDeath?.Invoke(gameObject, collision.gameObject);
             Destroy(gameObject);
         }
@@ -48,11 +48,12 @@ public class SerpentHead : Serpent{
     }
 
     void Spawn(){
-        if(m_DistanceMoved * 1.5 > m_Children.Count + 1 && m_Children.Count < m_TailLength){
+        if(m_DistanceMoved * 1.5 > m_Children.Count + 1.4 && m_Children.Count < m_TailLength){
             GameObject child = Instantiate(m_SerpentTail);
             child.GetComponent<SerpentTail>().OnHit += OnTailHit;
             if(m_Children.Count == 8 && m_LastSerpentTailModel)
                 child.GetComponent<MeshFilter>().mesh = m_LastSerpentTailModel;
+
             m_Children.Add(child);
         }
     }

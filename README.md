@@ -3,10 +3,10 @@
 
 # TODO
 + Finir les patternes des waves (Fait)
-+ Ajouter le looting de bonus (Terminer debug)
-+ Ajouter un ou plusieurs boss (Serpent(Faire modeles) + un boss qui tire)
++ Ajouter le looting de bonus
++ Ajouter un ou plusieurs boss (Serpent(Fait) + un boss qui tire)
 + Proposer différentes phases / différents patternes d'attaques pour les boss (En cours)
-+ Ajouter du son
++ Ajouter du son (Ambiance, Tire, Damage, Récupération Bonus, Shield Damage, shield activation)
 + Ajouter des textures / modèle etc (En cours)
 + Ajouter des background pour le titre et le jeu (Fait)
 

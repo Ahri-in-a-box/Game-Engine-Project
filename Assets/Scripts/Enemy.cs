@@ -28,7 +28,8 @@ public class Enemy : Entity{
     private void OnCollisionEnter(Collision collision){
         switch (collision.gameObject.tag){
             case "Player":
-                m_ActualHealth = 0;
+                if(!collision.gameObject.GetComponent<Player>().IsInv)
+                    m_ActualHealth = 0;
                 break;
             case "Bullet":
                 m_ActualHealth--;

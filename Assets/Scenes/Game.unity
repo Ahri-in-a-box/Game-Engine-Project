@@ -309,7 +309,7 @@ MonoBehaviour:
   m_BossSperpentHead: {fileID: 8168988663806049591, guid: 08fd7673f560d7745ad3d177b2eb7398, type: 3}
   m_Boss2Object: {fileID: 0}
   m_LootSpawnProbability: 0.1
-  m_LootObject: {fileID: 0}
+  m_LootObject: {fileID: 7759999818957800534, guid: c282aec5c0ec8b744b77066899ae10fd, type: 3}
 --- !u!4 &46137454
 Transform:
   m_ObjectHideFlags: 0

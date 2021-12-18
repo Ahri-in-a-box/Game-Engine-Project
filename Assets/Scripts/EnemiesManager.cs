@@ -12,13 +12,12 @@ enum Wave{
     V,
     W,
     X,
-    BOSS
 };
 
 public class EnemiesManager : MonoBehaviour{
 
-    private const uint NB_POSS_WAVE = 8; //
-    private const uint NB_POSS_LOOT = 4; //+1 with NONE
+    private const uint NB_POSS_WAVE = 8;
+    private const uint NB_POSS_LOOT = 4;
     private const uint NB_WAVE_TO_BOSS_SPAWN = 7; //A boss every 8 waves
 
     [Header("Spawn Settings")]
@@ -79,10 +78,11 @@ public class EnemiesManager : MonoBehaviour{
             enemy.GetComponent<Enemy>().OnDeath -= Died;
 
         if(destroyer.tag == "Bullet"){
-            if(UnityEngine.Random.Range(0,1) < m_LootSpawnProbability && m_LootObject){
+            if(UnityEngine.Random.Range(0f, 1f) < m_LootSpawnProbability && m_LootObject){
                 GameObject child = Instantiate(m_LootObject);
+                child.transform.position = enemy.transform.position;
                 Loot comp = child.GetComponent<Loot>();
-                switch ((eLoot)(Mathf.RoundToInt(UnityEngine.Random.Range(0, NB_POSS_LOOT)) + 1)){
+                switch((eLoot)UnityEngine.Random.Range(1, (int)NB_POSS_LOOT)){
                     case eLoot.HEALTH:
                         child.name = "Health Kit";
                         comp.SetType((int)eLoot.HEALTH);
@@ -107,6 +107,45 @@ public class EnemiesManager : MonoBehaviour{
             }
         }
     }
+
+    public void SerpentDied(GameObject enemy, GameObject destroyer){
+        m_Children.Remove(enemy);
+        if(enemy.GetComponent<SerpentHead>())
+            enemy.GetComponent<SerpentHead>().OnDeath -= Died;
+
+        int rand = UnityEngine.Random.Range(1, 3);
+        for (int i = 0; i < rand; i++){
+            if(m_LootObject){
+                GameObject child = Instantiate(m_LootObject);
+                child.transform.position = enemy.transform.position;
+                child.transform.position += child.transform.right * (i - Mathf.FloorToInt(i / 2));
+                Loot comp = child.GetComponent<Loot>();
+                switch ((eLoot)UnityEngine.Random.Range(1, (int)NB_POSS_LOOT)){
+                    case eLoot.HEALTH:
+                        child.name = "Health Kit";
+                        comp.SetType((int)eLoot.HEALTH);
+                        comp.SetValue(1);
+                        break;
+                    case eLoot.SHIELD:
+                        child.name = "Shield";
+                        comp.SetType((int)eLoot.SHIELD);
+                        comp.SetValue(5);
+                        break;
+                    case eLoot.GROWTH:
+                        child.name = "HP Growth";
+                        comp.SetType((int)eLoot.GROWTH);
+                        comp.SetValue(1);
+                        break;
+                    case eLoot.AMPLIFIER:
+                        child.name = "Amplifier";
+                        comp.SetType((int)eLoot.AMPLIFIER);
+                        comp.SetValue(1);
+                        break;
+                }
+            }
+        }
+    }
+
 
     private void SpawnBase(){
         int i;
@@ -382,8 +421,11 @@ public class EnemiesManager : MonoBehaviour{
     }
 
     private void SpawnBoss(){
-        if(m_BossSperpentHead)
+        if (m_BossSperpentHead){
             m_Children.Add(Instantiate(m_BossSperpentHead));
+            m_Children[0].GetComponent<SerpentHead>().OnDeath += SerpentDied;
+        }
+            
     }
 
     private void Spawn(){

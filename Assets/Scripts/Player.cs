@@ -24,6 +24,9 @@ public class Player : Entity{
     private uint m_Score = 0;
     private uint m_Shield = 0;
     private uint m_BulletPerShoot = 3;
+    private float m_InvTime = 0;
+
+    public bool IsInv => m_InvTime > 0;
 
     public uint score => m_Score;
     public uint shield => m_Shield;
@@ -92,11 +95,15 @@ public class Player : Entity{
     private void OnCollisionEnter(Collision collision){
         switch (collision.gameObject.tag){
             case "Enemy":
-                if (m_Shield > 0)
-                    m_Shield--;
-                else
-                    m_ActualHealth--;
-                OnHPChange?.Invoke(this);
+                if(m_InvTime == 0){
+                    if (m_Shield > 0)
+                        m_Shield--;
+                    else
+                        m_ActualHealth--;
+                    m_InvTime = 3;
+                    OnHPChange?.Invoke(this);
+                }
+                
                 break;
             default:
                 break;
@@ -186,6 +193,20 @@ public class Player : Entity{
     // Update is called once per frame
     void Update(){
         PlayerControl();
+        if (m_InvTime > 0){
+            m_InvTime -= Time.deltaTime;
+
+            MeshRenderer renderer = gameObject.GetComponent<MeshRenderer>();
+            renderer.enabled = !renderer.enabled;
+
+            if (m_InvTime < 0){
+                m_InvTime = 0;
+                renderer.enabled = true;
+            }
+                
+        }
+            
+        
     }
 
     private void OnDestroy(){
