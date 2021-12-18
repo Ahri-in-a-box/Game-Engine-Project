@@ -20,6 +20,20 @@ public class Player : Entity{
     [SerializeField]
     private GameObject m_FireObject = null;
 
+    [Header("Sonds Settings")]
+    [SerializeField]
+    private AudioSource m_ShieldCreation = null;
+    [SerializeField]
+    private AudioSource m_ShieldDamaged = null;
+    [SerializeField]
+    private AudioSource m_ShieldDestruction = null;
+    [SerializeField]
+    private AudioSource m_ShipDamaged = null;
+    [SerializeField]
+    private AudioSource m_EnnemyHit = null;
+    [SerializeField]
+    private AudioSource m_LootTaken = null;
+
     private System.Diagnostics.Stopwatch m_Stopwatch = null;
     private uint m_Score = 0;
     private uint m_Shield = 0;
@@ -62,10 +76,13 @@ public class Player : Entity{
         m_Score += 10;
         if(hp == 0)
             m_Score += 20;
+
+        m_EnnemyHit?.Play();
         OnScoreChange?.Invoke(m_Score);
     }
 
     private void OnLootTaken(Loot loot){
+        m_LootTaken?.Play();
         switch ((eLoot)loot.LootType){
             case eLoot.HEALTH:
                 m_ActualHealth += loot.value;
@@ -75,6 +92,7 @@ public class Player : Entity{
                 break;
             case eLoot.SHIELD:
                 m_Shield += loot.value;
+                m_ShieldCreation?.Play();
                 OnHPChange?.Invoke(this);
                 break;
             case eLoot.GROWTH:
@@ -96,10 +114,14 @@ public class Player : Entity{
         switch (collision.gameObject.tag){
             case "Enemy":
                 if(m_InvTime == 0){
-                    if (m_Shield > 0)
+                    if(m_Shield > 0){
                         m_Shield--;
-                    else
+                        m_ShieldDamaged?.Play();
+                    }else{
                         m_ActualHealth--;
+                        m_ShipDamaged?.Play();
+                    }
+                        
                     m_InvTime = 3;
                     OnHPChange?.Invoke(this);
                 }
