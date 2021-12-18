@@ -52,6 +52,9 @@ public class UserInterface : MonoBehaviourSingleton<UserInterface>{
 
         m_HPBar.minValue = 0;
         m_HPBar.maxValue = m_Player.MaxHP;
+        m_HPBar.value = m_Player.MaxHP;
+
+        m_ShieldBar.gameObject.SetActive(false);
     }
 
     public void TogglePausePanel(bool pause){
@@ -96,10 +99,10 @@ public class UserInterface : MonoBehaviourSingleton<UserInterface>{
         uint maxHp = player.MaxHP;
         uint shield = player.shield;
 
-        m_HPBar.maxValue = maxHp;
-        m_HPBar.value = hp;
-        m_ShieldBar.maxValue = maxHp == shield ? shield + 1 : shield;
+        m_ShieldBar.maxValue = m_HPBar.maxValue = maxHp + shield;
+        m_HPBar.value = hp + shield;
         m_ShieldBar.value = shield;
+        m_ShieldBar.gameObject.SetActive(shield != 0);
 
         if (hp == 0){
             if(m_ScoreBoard){

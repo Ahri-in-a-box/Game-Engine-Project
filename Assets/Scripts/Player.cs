@@ -23,7 +23,7 @@ public class Player : Entity{
     private System.Diagnostics.Stopwatch m_Stopwatch = null;
     private uint m_Score = 0;
     private uint m_Shield = 0;
-    private uint m_BulletPerShoot = 1;
+    private uint m_BulletPerShoot = 3;
 
     public uint score => m_Score;
     public uint shield => m_Shield;
@@ -45,6 +45,7 @@ public class Player : Entity{
         m_Stopwatch = new System.Diagnostics.Stopwatch();
 
         Bullet.OnHit += OnBulletHit;
+        Loot.OnLootTaken += OnLootTaken;
 
         m_DefaultRotation = transform.rotation;
     }
@@ -61,6 +62,33 @@ public class Player : Entity{
         OnScoreChange?.Invoke(m_Score);
     }
 
+    private void OnLootTaken(Loot loot){
+        switch ((eLoot)loot.LootType){
+            case eLoot.HEALTH:
+                m_ActualHealth += loot.value;
+                if (m_ActualHealth > m_MaxHealth)
+                    m_ActualHealth = m_MaxHealth;
+                OnHPChange?.Invoke(this);
+                break;
+            case eLoot.SHIELD:
+                m_Shield += loot.value;
+                OnHPChange?.Invoke(this);
+                break;
+            case eLoot.GROWTH:
+                m_ActualHealth += loot.value;
+                m_MaxHealth += loot.value;
+                OnHPChange?.Invoke(this);
+                break;
+            case eLoot.AMPLIFIER:
+                m_BulletPerShoot += 1;
+                if (m_BulletPerShoot > 3)
+                    m_BulletPerShoot = 3;
+                break;
+            default:
+                break;
+        }
+    }
+
     private void OnCollisionEnter(Collision collision){
         switch (collision.gameObject.tag){
             case "Enemy":
@@ -69,30 +97,6 @@ public class Player : Entity{
                 else
                     m_ActualHealth--;
                 OnHPChange?.Invoke(this);
-                break;
-            case "Loot":
-                Loot loot = collision.gameObject.GetComponent<Loot>();
-                switch((eLoot)loot.LootType){
-                    case eLoot.HEALTH:
-                        m_ActualHealth += loot.value;
-                        if(m_ActualHealth > m_MaxHealth)
-                            m_ActualHealth = m_MaxHealth;
-                        break;
-                    case eLoot.SHIELD:
-                        m_Shield += loot.value;
-                        break;
-                    case eLoot.GROWTH:
-                        m_ActualHealth += loot.value;
-                        m_MaxHealth += loot.value;
-                        break;
-                    case eLoot.AMPLIFIER:
-                        m_BulletPerShoot += 1;
-                        if(m_BulletPerShoot > 3)
-                            m_BulletPerShoot = 3;
-                        break;
-                    default:
-                        break;
-                }
                 break;
             default:
                 break;
@@ -145,7 +149,8 @@ public class Player : Entity{
                         for(int i = 0; i < 3; i++){
                             GameObject bul = Instantiate(m_FireObject);
                             bul.transform.position = transform.position;
-                            bul.transform.Rotate(0, 0, (i - 1) * 35);
+                            bul.transform.position += bul.transform.right * 0.1f * (i - 1);
+                            bul.transform.Rotate(0, 0, -(i - 1) * 10);
                         }
                         break;
                     default:
@@ -185,5 +190,6 @@ public class Player : Entity{
 
     private void OnDestroy(){
         Bullet.OnHit -= OnBulletHit;
+        Loot.OnLootTaken -= OnLootTaken;
     }
 }

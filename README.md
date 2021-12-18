@@ -3,12 +3,12 @@
 
 # TODO
 + Finir les patternes des waves (Fait)
-+ Ajouter le looting de bonus (A debug + Faire modeles)
++ Ajouter le looting de bonus (Terminer debug)
 + Ajouter un ou plusieurs boss (Serpent(Faire modeles) + un boss qui tire)
-+ Proposer différentes phases / différents patternes d'attaques pour les boss
++ Proposer différentes phases / différents patternes d'attaques pour les boss (En cours)
 + Ajouter du son
-+ Ajouter des textures / modèle etc
-+ Ajouter des background pour le titre et le jeu (fait)
++ Ajouter des textures / modèle etc (En cours)
++ Ajouter des background pour le titre et le jeu (Fait)
 
 # Known Issues
 + Les parties de la queues du serpent peuvent se désynchroniser avec les autres parties ou la tête
