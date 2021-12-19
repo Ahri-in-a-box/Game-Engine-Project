@@ -48,8 +48,11 @@ public class Enemy : Entity{
         transform.position -= transform.up * Time.deltaTime * m_Speed;
 
         Vector3 screen_position = m_MainCamera.WorldToScreenPoint(transform.position);
-        if (screen_position.y < 0)
+        if (screen_position.y < 0){
+            OnDeath?.Invoke(gameObject, gameObject);
             Destroy(gameObject);
+        }
+            
     }
 
     // Update is called once per frame

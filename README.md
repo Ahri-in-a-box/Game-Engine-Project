@@ -11,7 +11,8 @@
 + Ajouter des background pour le titre et le jeu (Fait)
 
 # Known Issues
-+ Les parties de la queues du serpent peuvent se désynchroniser avec les autres parties ou la tête
++ Les parties du serpents peuvent se désynchroniser en fonction de l'évolution des ips/fps. (Possiblement réglé)
++ Les objets collectables ne sont pas récupérés si le vaisseau est immobile
 
 # Credits
 + DinV Studio: Dynamic Space Background (https://assetstore.unity.com/packages/2d/textures-materials/dynamic-space-background-104175)
@@ -19,3 +20,4 @@
 + Joseph SARDIN: Bruitage "Passage vaisseau spatial 1" (https://lasonotheque.org/detail-1971-passage-vaisseau-spatial-1.html)
 + bart: Bruitage "Space Ship Shield Sounds" (https://opengameart.org/content/space-ship-shield-sounds)
 + https://www.zapsplat.com/: Bruitage complémentaire et musique d'ambiance (Licence: https://www.zapsplat.com/license-type/standard-license/)
++ Les modèles ont été fait avec Asset Forge

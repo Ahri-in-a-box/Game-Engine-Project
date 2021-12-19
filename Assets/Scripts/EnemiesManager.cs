@@ -69,7 +69,7 @@ public class EnemiesManager : MonoBehaviour{
             Debug.LogError("No Object to spawn for EnemiesManager");
 
         TimeSpan time = DateTime.Now.Subtract(new DateTime(1970, 1, 1));
-        UnityEngine.Random.InitState((int)time.TotalMilliseconds);
+        UnityEngine.Random.InitState(Convert.ToInt32(time.TotalSeconds));
     }
 
     public void Died(GameObject enemy, GameObject destroyer){

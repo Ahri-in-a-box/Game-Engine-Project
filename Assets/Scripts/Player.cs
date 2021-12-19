@@ -37,7 +37,7 @@ public class Player : Entity{
     private System.Diagnostics.Stopwatch m_Stopwatch = null;
     private uint m_Score = 0;
     private uint m_Shield = 0;
-    private uint m_BulletPerShoot = 3;
+    private uint m_BulletPerShoot = 1;
     private float m_InvTime = 0;
 
     public bool IsInv => m_InvTime > 0;

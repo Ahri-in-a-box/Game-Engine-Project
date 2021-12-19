@@ -58,9 +58,12 @@ public class SerpentHead : Serpent{
         }
     }
 
+    private void FixedUpdate(){
+        Move();
+    }
+
     // Update is called once per frame
     void Update(){
-        Move();
         Spawn();
     }
 
